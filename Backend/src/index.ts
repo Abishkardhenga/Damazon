@@ -17,6 +17,14 @@ app.get("/api/products", (req:Request, res:Response)=>{
 
 })
 
+app.get("/api/product/:slug", (req:Request, res:Response)=>{
+    const { slug} = req.params ; 
+
+  const product =   sampleProducts.find((product)=>(product.slug === slug))
+  res.json(product)
+
+})
+
 app.listen(4000, ()=>{
     console.log("server running successfully")
 })

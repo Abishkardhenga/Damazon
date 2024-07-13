@@ -15,3 +15,19 @@ export const useGetProductsQuery = ()=>{
     })
 
 }
+
+
+export const useGetProductQuery = (slug:string)=>{
+
+return useQuery({
+    queryKey : ["products", slug],
+    queryFn: async()=>{
+
+       return (await apiClient.get<Product>(`/api/product/${slug}`)).data
+    }
+
+
+})
+
+
+}

@@ -1,24 +1,14 @@
 
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import Homepage from './pages/Homepage'
+import NavbarComponent from './components/Navbar'
 
 function App() {
 
   return (
     <div className='vh-full d-flex flex-column'>
       <header>
-        <Navbar bg='dark' variant='dark' expand="lg">
-          <Container>
-
-            <Navbar.Brand>
-              AMAZON
-            </Navbar.Brand>
-            <Nav>
-              <a href="/cart" className='nav-link'>Cart</a>
-              <a href="/signin" className='nav-link'>Sign In</a>
-            </Nav>
-          </Container>
-        </Navbar>
+      <NavbarComponent/>
       </header>
       <main>
         <Container className='mt-3'>
