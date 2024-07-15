@@ -1,4 +1,4 @@
-import { createContext, Dispatch, Reducer, useReducer, PropsWithChildren } from "react"
+import React, { createContext, Dispatch } from "react"
 
 type AppState = {
     mode: string
@@ -39,22 +39,22 @@ const defaulDispatch: Dispatch<Action> = () => initialState
 
 const Store = createContext(
 
-    {
+    { 
         state: initialState,
         dispatch: defaulDispatch
     }
 )
 
 
-function StoreProvider = ( children:PropsWithChildren<{}> ) => {
 
-    const [state, dispatch] = useReducer <Reducer<AppState, Action>>(reducer, initialState)
+function StoreProvider(props: React.PropsWithChildren<{}>) {
+    const [state, dispatch] = React.useReducer<React.Reducer<AppState, Action>>(
+      reducer,
+      initialState
+    )
+  
+    return <Store.Provider value={{ state, dispatch }} {...props} />
+  }
 
 
-    return <Store.Provider value={{state, dispatch} }  {...children}/>
-
-
-}
-
-
-export { StoreProvider }
+export { StoreProvider , Store}
