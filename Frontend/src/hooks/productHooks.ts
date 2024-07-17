@@ -7,7 +7,7 @@ export const useGetProductsQuery = ()=>{
         queryKey:["products"],
         queryFn:async()=>{
             
-                const response =  await apiClient.get<Product[]>("/api/products")
+                const response =  await apiClient.get<Product[]>("/api/product")
                 return response.data
         
         
@@ -23,7 +23,7 @@ return useQuery({
     queryKey : ["products", slug],
     queryFn: async()=>{
 
-       return (await apiClient.get<Product>(`/api/product/${slug}`)).data
+       return (await apiClient.get<Product>(`/api/product/slug/${slug}`)).data
     }
 
 

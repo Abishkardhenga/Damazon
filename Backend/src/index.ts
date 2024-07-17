@@ -1,8 +1,16 @@
 import express, { Request, Response} from "express";
 import { sampleProducts } from "./utilis/dummyproduct";
 import cors from "cors" ; 
+import dotenv from "dotenv"
+import connectDb from "./mongodb/db";
+import productRouter from "./routes/product.router";
+import seedRouter from "./routes/seed.router";
 
 const app = express()
+
+dotenv.config()
+connectDb()
+const PORT = process.env.PORT || 4000 
 
 const corsOption = {
  origin:"http://localhost:5173",
@@ -12,19 +20,10 @@ credentials:true
 
 app.use(cors(corsOption))
 
-app.get("/api/products", (req:Request, res:Response)=>{
-    res.send(sampleProducts)
+app.use("/api/product",productRouter )
+app.use("/api/seed", seedRouter)
 
-})
 
-app.get("/api/product/:slug", (req:Request, res:Response)=>{
-    const { slug} = req.params ; 
-
-  const product =   sampleProducts.find((product)=>(product.slug === slug))
-  res.json(product)
-
-})
-
-app.listen(4000, ()=>{
-    console.log("server running successfully")
+app.listen(PORT, ()=>{
+    console.log("server running successfully", PORT)
 })
