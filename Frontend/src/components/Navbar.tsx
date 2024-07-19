@@ -25,9 +25,9 @@ const NavbarComponent = () => {
     <Navbar  expand="lg">
     <Container>
 
-      <Navbar.Brand>
+      <Link style={{textDecoration:"none", color:'grey'}} to="/" >
         DAMAZON
-      </Navbar.Brand>
+      </Link>
       <Nav>
         <Button variant={mode} onClick={changetheme}>
           <i className={mode === 'light'?'fa fa-sun':"fa fa-moon"}></i>
