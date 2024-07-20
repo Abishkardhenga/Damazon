@@ -1,6 +1,7 @@
-import { Product } from "../types/product.types";
+import bcrypt from "bcryptjs"
 
-export const sampleProducts: Product[] = [
+
+ const sampleProducts =  [
     {
         name: "Apple iPhone 13",
         price: 799,
@@ -85,3 +86,24 @@ export const sampleProducts: Product[] = [
         slug: "the-great-gatsby"
     }
 ];
+
+
+const dummyUsers = [
+    {
+      name: 'John Doe',
+      email: 'john@example.com',
+      password:  bcrypt.hashSync('password123'),
+      isAdmin: false,
+    },
+    {
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      password:  bcrypt.hashSync('password123'),
+      isAdmin: true,
+    },]
+
+
+export  { 
+    sampleProducts,
+    dummyUsers
+}

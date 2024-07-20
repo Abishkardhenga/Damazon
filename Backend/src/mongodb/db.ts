@@ -10,7 +10,6 @@ const connectDb = async () => {
 
     try {
         await mongoose.connect(uri)
-        console.log("mongo db uri", uri);
         console.log("Database connected successfully")
         }
     

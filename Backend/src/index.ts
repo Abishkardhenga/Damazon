@@ -5,6 +5,7 @@ import dotenv from "dotenv"
 import connectDb from "./mongodb/db";
 import productRouter from "./routes/product.router";
 import seedRouter from "./routes/seed.router";
+import { UserRouter } from "./routes/user.router";
 
 const app = express()
 
@@ -20,7 +21,14 @@ credentials:true
 
 app.use(cors(corsOption))
 
+
+app.use(express.json())
+app.use(express.urlencoded({ 
+    extended:true
+}))
+
 app.use("/api/product",productRouter )
+app.use("/api/user",UserRouter )
 app.use("/api/seed", seedRouter)
 
 

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import MessageBox from '../components/MessageBox'
 import { Store } from '../Store'
 import { CartItem } from '../types/Cart'
+import NavbarComponent from '../components/Navbar'
 
 export default function CartPage() {
   const navigate = useNavigate()
@@ -37,7 +38,8 @@ export default function CartPage() {
   }
 
   return (
-    <div>
+    <div className='cartcontainer'>
+      <NavbarComponent></NavbarComponent>
      
       <h1>Shopping Cart</h1>
       <Row>
