@@ -13,7 +13,7 @@ export default function CartPage() {
   const {
     state: {
       mode,
-      cart: { cartItems },
+      cart: { cartItems }
     },
     dispatch,
   } = useContext(Store)

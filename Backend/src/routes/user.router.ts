@@ -27,3 +27,25 @@ token:generateToken(user)
     }
 res.status(401).json({message:"Invalid email or password "})
 }))
+
+
+UserRouter.post("/signup", asyncHandler(async(req:Request, res:Response)=>{
+    const newUser = await UserModel.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: bycrypt.hashSync(req.body.password),
+    } )
+
+    if(!newUser){
+        res.status(403).json({ message:"Something is error"})
+    }
+
+    res.json({ 
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        isAdmin: newUser.isAdmin,
+        token: generateToken(newUser),
+    })
+
+}))

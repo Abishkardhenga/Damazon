@@ -8,8 +8,8 @@ function App() {
 
   return (
     <div className='vh-full d-flex flex-column'>
-      
-            <ToastContainer position="bottom-center" limit={1} />
+
+            <ToastContainer position="bottom-center"  />
       <header>
       <NavbarComponent/>
       </header>
