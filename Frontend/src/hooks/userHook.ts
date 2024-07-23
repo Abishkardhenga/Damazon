@@ -9,6 +9,8 @@ export const useSigninMutation = () => useMutation({
 
         const response = await apiClient.post<UserInfoType>("/api/user/signin", {
             email, password
+        }, {
+            withCredentials:true
         })
         return response.data;
     }
@@ -24,6 +26,8 @@ export const useSignupMutation = ()=> useMutation({
 
       const response =   await apiClient.post<UserInfoType>("/api/user/signup", {
             email , password, name
+        },{
+            withCredentials:true
         })
 
         return response.data;

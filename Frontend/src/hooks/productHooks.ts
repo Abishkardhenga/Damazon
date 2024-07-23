@@ -7,7 +7,9 @@ export const useGetProductsQuery = ()=>{
         queryKey:["products"],
         queryFn:async()=>{
             
-                const response =  await apiClient.get<Product[]>("/api/product")
+                const response =  await apiClient.get<Product[]>("/api/product", { 
+                    withCredentials:true
+                })
                 return response.data
         
         
