@@ -1,7 +1,7 @@
 import { NextFunction,Request, Response } from "express";
 import { usertype } from "../types/dbtypes";
 import jwt,{ JwtPayload } from "jsonwebtoken";
-import { ModifiedRequest } from "../types/Request";
+import { ModifiedRequest, userPayload } from "../types/Request";
 
 const generateToken = (user: usertype) => {
   if (!process.env.JWT_SECRET) {
@@ -26,7 +26,7 @@ const generateToken = (user: usertype) => {
 
 
 
-const isAuth = (req: ModifiedRequest, res: Response, next: NextFunction) => {
+export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   if (req.cookies && req.cookies.token) {
     const { token } = req.cookies;
     if (!process.env.JWT_SECRET) {
@@ -34,27 +34,18 @@ const isAuth = (req: ModifiedRequest, res: Response, next: NextFunction) => {
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      if (typeof decoded === 'string') {
-        return res.status(401).json({ message: 'Invalid Token' });
+      const decode = jwt.verify(
+        token,
+        process.env.JWT_SECRET 
+      ) as userPayload;
+      (req as ModifiedRequest).user = decode as {
+        _id: string
+        name: string
+        email: string
+        isAdmin: boolean
+        token: string
       }
-
-      const user = decoded as JwtPayload & {
-        _id: string;
-        name: string;
-        email: string;
-        isAdmin: boolean;
-      };
-
-      req.user = {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: token,
-      };
-
       next();
     } catch (error) {
       res.status(401).json({ message: 'Invalid Token' });
@@ -64,6 +55,5 @@ const isAuth = (req: ModifiedRequest, res: Response, next: NextFunction) => {
   }
 };
 
-export default isAuth;
 
-export  {generateToken, isAuth};
+export  {generateToken};

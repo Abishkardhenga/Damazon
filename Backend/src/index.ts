@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDb from './mongodb/db';
 import productRouter from './routes/product.router';
-import seedRouter from './routes/seed.router';
+import {seedRouter} from './routes/seed.router';
 import UserRouter from './routes/user.router';
 import cookieParser from 'cookie-parser';
 
