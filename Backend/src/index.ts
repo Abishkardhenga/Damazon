@@ -22,7 +22,7 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser(process.env.JWT_SECRET)); // Use with a secret if you are using signed cookies
+app.use(cookieParser(process.env.JWT_SECRET)); 
 
 app.use("/api/product", productRouter);
 app.use("/api/user", UserRouter);
