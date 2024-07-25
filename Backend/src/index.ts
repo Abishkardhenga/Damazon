@@ -6,6 +6,7 @@ import productRouter from './routes/product.router';
 import {seedRouter} from './routes/seed.router';
 import UserRouter from './routes/user.router';
 import cookieParser from 'cookie-parser';
+import { orderRouter } from './routes/Order.router';
 
 dotenv.config();
 connectDb();
@@ -26,6 +27,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 
 app.use("/api/product", productRouter);
 app.use("/api/user", UserRouter);
+app.use("/api/orders", orderRouter);
 app.use("/api/seed", seedRouter);
 
 app.listen(PORT, () => {
