@@ -16,9 +16,9 @@ UserRouter.post('/signin', asyncHandler(async (req: Request, res: Response) => {
     const token = generateToken(user);
 
     res.cookie('token', token, {
-        httpOnly: false,
-        maxAge: 24 * 60 * 60 * 1000,
-        sameSite: "none", 
+      httpOnly: false,
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: true,
     
     });
 
@@ -50,9 +50,9 @@ UserRouter.post("/signup", asyncHandler(async(req:Request, res:Response)=>{
     }
 
     res.cookie("token", newUser, {
-        httpOnly: false,
-        maxAge: 24 * 60 * 60 * 1000,
-        sameSite:"none"
+      httpOnly: false,
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "none",
       }).json({ 
         _id: newUser._id,
         name: newUser.name,

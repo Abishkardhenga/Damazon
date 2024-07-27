@@ -1,11 +1,14 @@
-import { useContext } from 'react'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useContext, useEffect } from 'react'
 import { Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
 import { Store } from '../Store'
 
-import { useGetOrderById } from '../hooks/orderHooks'
+import { useGetOrderById, useGetPaypalClientId, usePayOrderMutation } from '../hooks/orderHooks'
+import { toast } from 'react-toastify'
+import { SCRIPT_LOADING_STATE, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 
 export default function OrderPage() {
   const { state } = useContext(Store)
@@ -14,7 +17,37 @@ export default function OrderPage() {
   const params = useParams()
   const { id: orderId } = params
 
-  const { data: order, isLoading, error } = useGetOrderById(orderId!)
+  const { data: order, isLoading, error, refetch } = useGetOrderById(orderId!)
+
+  const { mutateAsync:payOrder  } = usePayOrderMutation()
+  const testPayHandler = async()=>{
+   await payOrder({orderId:orderId!})
+    refetch()
+    toast.success("Payment Successful")
+  }
+
+  const  [ {isPending,isRejected}, paypalDispatch] = usePayPalScriptReducer()
+  const  {data:paypalConfig , isPending:loadingPaypal} = useGetPaypalClientId()
+
+
+  useEffect(() => {
+    if (paypalConfig && paypalConfig.clientId) {
+      const loadPaypalScript = async () => {
+        paypalDispatch({
+          type: 'resetOptions',
+          value: {
+            'client-id': paypalConfig!.clientId,
+            currency: 'USD',
+          },
+        })
+        paypalDispatch({
+          type: 'setLoadingStatus',
+          value: SCRIPT_LOADING_STATE.PENDING,
+        })
+      }
+      loadPaypalScript()
+    }
+  }, [paypalConfig])
 
   return isLoading ? (
     <LoadingBox></LoadingBox>

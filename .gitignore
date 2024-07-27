@@ -24,6 +24,7 @@ build
 # IDEs and editors
 .idea/
 .vscode/
+.vscode
 *.swp
 
 # Operating system files

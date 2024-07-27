@@ -5,7 +5,6 @@ import { toast } from 'react-toastify'
 import MessageBox from '../components/MessageBox'
 import { Store } from '../Store'
 import { CartItem } from '../types/Cart'
-import NavbarComponent from '../components/Navbar'
 
 export default function CartPage() {
   const navigate = useNavigate()
@@ -13,7 +12,7 @@ export default function CartPage() {
   const {
     state: {
       mode,
-      cart: { cartItems }
+      cart: { cartItems },
     },
     dispatch,
   } = useContext(Store)
@@ -29,18 +28,16 @@ export default function CartPage() {
     })
   }
   const checkoutHandler = () => {
-    navigate('/signin?redirect=/shipping')
+    // navigate('/signin?redirect=/shipping')
+    navigate("/shipping")
   }
-
-
   const removeItemHandler = (item: CartItem) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item })
   }
 
   return (
-    <div className='cartcontainer'>
-      <NavbarComponent></NavbarComponent>
-     
+    <div>
+    
       <h1>Shopping Cart</h1>
       <Row>
         <Col md={8}>
@@ -84,7 +81,10 @@ export default function CartPage() {
                     </Col>
                     <Col md={3}>${item.price}</Col>
                     <Col md={2}>
-                      <Button onClick={()=>removeItemHandler(item)} variant={mode}>
+                      <Button
+                        onClick={() => removeItemHandler(item)}
+                        variant={mode}
+                      >
                         <i className="fas fa-trash"></i>
                       </Button>
                     </Col>

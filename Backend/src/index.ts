@@ -7,6 +7,7 @@ import {seedRouter} from './routes/seed.router';
 import UserRouter from './routes/user.router';
 import cookieParser from 'cookie-parser';
 import { orderRouter } from './routes/Order.router';
+import { keyRouter } from './routes/key.router';
 
 dotenv.config();
 connectDb();
@@ -23,12 +24,13 @@ const corsOption = {
 app.use(cors(corsOption));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser(process.env.JWT_SECRET)); 
+app.use(cookieParser()); 
 
 app.use("/api/product", productRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/seed", seedRouter);
+app.use("/api/keys", keyRouter);
 
 app.listen(PORT, () => {
   console.log("Server running successfully on port", PORT);

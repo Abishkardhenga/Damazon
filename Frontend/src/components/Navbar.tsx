@@ -41,7 +41,6 @@ const NavbarComponent = () => {
           <Button variant={mode} onClick={changetheme}>
             <i className={mode === 'light' ? 'fa fa-sun' : "fa fa-moon"}></i>
           </Button>
-
           <Link to="/cart" className="nav-link">
             Cart
             {cart.cartItems.length > 0 && (

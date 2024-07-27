@@ -1,17 +1,32 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { Store } from "../Store"
 import { Navigate, Outlet } from "react-router-dom"
+import { useCookies } from "react-cookie";
 
 const ProtectedRoute = () => {
+    const [cookies] = useCookies();
+  console.log("cookeis token", cookies.token)
+  console.log("cookeis", cookies)
+
+
     const  { state:{userInfo} } = useContext(Store)
-    if(!userInfo){
-       return <Navigate to="/signin"/>
+  
+    useEffect(() => {
+        console.log("Cookies token:", cookies.token);
+        console.log("Cookies:", cookies);
+        console.log("User info:", userInfo);
+      }, [cookies, userInfo]);
+
+    if(userInfo && cookies.token){
+        return <Outlet/>
+
 
     }
     else{
-        return <Outlet/>
+        return <Navigate to="/signin"/>
 
     }
+
 
 }
 
