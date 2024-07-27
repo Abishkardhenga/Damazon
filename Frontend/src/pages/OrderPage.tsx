@@ -26,28 +26,28 @@ export default function OrderPage() {
     toast.success("Payment Successful")
   }
 
-  const  [ {isPending,isRejected}, paypalDispatch] = usePayPalScriptReducer()
-  const  {data:paypalConfig , isPending:loadingPaypal} = useGetPaypalClientId()
+  // const  [ {isPending,isRejected}, paypalDispatch] = usePayPalScriptReducer()
+  // const  {data:paypalConfig , isPending:loadingPaypal} = useGetPaypalClientId()
 
 
-  useEffect(() => {
-    if (paypalConfig && paypalConfig.clientId) {
-      const loadPaypalScript = async () => {
-        paypalDispatch({
-          type: 'resetOptions',
-          value: {
-            'client-id': paypalConfig!.clientId,
-            currency: 'USD',
-          },
-        })
-        paypalDispatch({
-          type: 'setLoadingStatus',
-          value: SCRIPT_LOADING_STATE.PENDING,
-        })
-      }
-      loadPaypalScript()
-    }
-  }, [paypalConfig])
+  // useEffect(() => {
+  //   if (paypalConfig && paypalConfig.clientId) {
+  //     const loadPaypalScript = async () => {
+  //       paypalDispatch({
+  //         type: 'resetOptions',
+  //         value: {
+  //           'client-id': paypalConfig!.clientId,
+  //           currency: 'USD',
+  //         },
+  //       })
+  //       paypalDispatch({
+  //         type: 'setLoadingStatus',
+  //         value: SCRIPT_LOADING_STATE.PENDING,
+  //       })
+  //     }
+  //     loadPaypalScript()
+  //   }
+  // }, [paypalConfig])
 
   return isLoading ? (
     <LoadingBox></LoadingBox>
