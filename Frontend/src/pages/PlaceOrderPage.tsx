@@ -1,4 +1,4 @@
-import  { useContext, useEffect } from 'react'
+import  { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Store } from '../Store'
 import { useCreateOrderHooks } from '../hooks/orderHooks'
@@ -13,7 +13,6 @@ const PlaceOrderPage = () => {
     const navigate = useNavigate()
     const { state, dispatch } = useContext(Store)
     const  { cart , userInfo} = state
-
     const round2 = (num:number)=>Math.round(num*100 + Number.EPSILON)/100
     cart.itemsPrice = round2(
         cart.cartItems.reduce((a,b)=>a+b.quantity*b.price,0)

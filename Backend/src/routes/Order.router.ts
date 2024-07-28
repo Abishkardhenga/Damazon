@@ -23,7 +23,7 @@ orderRouter.post("/", isAuth, asyncHandler(async (req: Request, res: Response) =
       taxPrice: req.body.taxPrice,
       totalPrice: req.body.totalPrice,
       user: (req as ModifiedRequest).user._id,
-    })
+    } )
     res.status(201).json({ message: 'Order Created', order: createdOrder })
   }
 
