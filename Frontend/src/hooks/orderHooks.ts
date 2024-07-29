@@ -28,7 +28,7 @@ export const useGetOrderById = (id: string) => {
         queryKey: ["order", id],
         queryFn: async () => {
 
-            const response = await apiClient.get<OrderType>(`api/orders/:${id}`)
+            const response = await apiClient.get<OrderType>(`api/orders/${id}`)
             return response.data;
 
 
